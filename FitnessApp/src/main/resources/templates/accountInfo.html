@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Account Info</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/templatemo-training-studio.css">
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <style>
+    .table{background-color:black}
+    .header-area{background:#38393b !important}
+	    body {
+	  background-image: url('/images/accountInfo.jpg');
+	    background-repeat: no-repeat;
+	    background-attachment: fixed !important;
+	    background-attachment: initial;
+		background-position: center top !important;
+	
+	    
+	    background-position: center, center;
+	    -webkit-background-size: cover;
+	    -moz-background-size: cover;
+	    -o-background-size: cover;
+	    background-size: cover;
+	
+	
+	  width:100%;
+	}
+    
+    .table tr{color:white}
+    #cooltable{opacity:70%}
+    #cooltable2{opacity:70%}
+    #cooltable3{opacity:70%}
+    #cooltable4{opacity:70%}
+    #cooltable5{opacity:70%}
+    label{color:white}
+    h1{margin-top:10%}
+    a{color:#4169E1}
+    .container{max-width: 1450px !important}
+    </style>
+</head>
+<body>
+<h6>.</h6>
+ <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="/" class="logo">Fit<em>Fam</em></a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+										                             <li class="scroll-to-section"><a href="/" class="active">Home</a></li>
+										                             <li class="scroll-to-section"><a href="/">About us</a></li>
+										                             <li class="scroll-to-section"><a href="/">Courses</a></li>
+										                             <li class="scroll-to-section"><a href="/">Contact</a></li> 
+										                             <li class="scroll-to-section"><a th:href="@{/Knowledge}">Knowledge</a></li> 
+										                             <li class="scroll-to-section"><a th:href="@{/Calculator}">Calculator</a></li> 
+										                             <li class="scroll-to-section"><a th:href="@{/trainers}">List of Trainers</a></li> 
+                   <div sec:authorize="!isAuthenticated()">          <li class="scroll-to-section"><a th:href="@{/login}">Login</a></li>  </div>
+                   
+ 				   <div sec:authorize="hasRole('ROLE_MENTOR')">      <li class="scroll-to-section"><a th:href="@{/trainees}">List of Trainees</a></li> </div>
+                   <div sec:authorize="hasRole('ROLE_ADMIN')">       <li class="scroll-to-section"><a th:href="@{/users}">List of Users</a></li> </div>  
+                   <div sec:authorize="isAuthenticated()">           <li class="scroll-to-section"><a th:href="@{/AccountInfo}">AccountInfo</a></li> </div>
+                   <div sec:authorize="isAuthenticated()">           <li class="scroll-to-section"><a th:href="@{/Logout}">Logout</a></li> </div>  
+                   <div sec:authorize="!isAuthenticated()">          <li class="main-button"><a th:href="@{/register}">Sign up</a></h3></li> </div>
+                         
+                         
+                         
+                        
+                            
+                        </ul>        
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+
+
+
+<div class="container text-center">
+        <div>
+            <h1>Profile Information</h1>
+     <div sec:authorize="hasRole('ROLE_MENTOR')">   
+                         
+                             	 <h3><a th:href="@{/AccountInfo/addPicture}">Add a profile picture</a></h3>
+                             	 <h3><a th:href="@{/AccountInfo/MoreInfo}">Add more detailed info</a></h3>
+                             	 </div>
+        </div>
+        <div>
+        
+        </div>
+         <div>
+         <label class="col-4 col-form-label"><b>Logs from the BMI</b> </label>
+	        <table id="cooltable" class="table table-striped table-bordered">
+	        
+	            <thead class="thead-dark">
+	                <tr>
+	                    <th>log ID</th>
+	                    <th>age</th>
+	                    <th>heigth</th>
+	                    <th>kilograms</th>
+	                    <th>date</th>
+	                    
+	                </tr>
+	            </thead>
+	            <tbody>
+	                <tr th:each="log: ${listlogs}">
+	                    <td th:text="${log.id}">log ID</td>
+	                    <td th:text="${log.age}">age</td>
+	                    <td th:text="${log.height}">heigth</td>
+	                    <td th:text="${log.kilograms}">kilograms</td>
+	                    <td th:text="${log.date}">date</td>
+	                    
+	                 
+	                    
+	                    
+	                    
+	                    
+	                </tr>
+	            </tbody>
+	            
+	             
+	        </table>
+   	 	</div>
+   	 	
+   	 	 <div>
+   	 	  <label class="col-4 col-form-label"><b>Blogs made</b> </label>
+	        <table id="cooltable2" class="table table-striped table-bordered">
+	            <thead class="thead-dark">
+	                <tr>
+	                    <th>title</th>
+	                    <th>date</th>
+	                    
+	                    
+	                </tr>
+	            </thead>
+	            <tbody>
+	                <tr th:each="blog: ${listblogs}">
+	                    <td th:text="${blog.title}">title</td>
+	                    <td th:text="${blog.date}">date</td>
+	                    
+	                    
+	                </tr>
+	            </tbody>
+	            
+	             
+	        </table>
+   	 	</div>
+   	 	
+   	 	
+   	 	<div>
+   	 	  <label class="col-4 col-form-label"><b>Program</b> </label>
+	        <table id="cooltable3" class="table table-striped table-bordered">
+	            <thead class="thead-dark">
+	                <tr>
+	                    <th>name</th>
+	                    <th>reps</th>
+	                    
+	                    
+	                </tr>
+	            </thead>
+	            <tbody>
+	                <tr th:each="exercise: ${listCurrentExercises}">
+	                    <td th:text="${exercise.name}">name</td>
+	                    <td th:text="${exercise.reps}">reps</td>
+	                    
+	                    
+	                </tr>
+	            </tbody>  
+	        </table>
+   	 	</div>
+   	 	
+   	 	
+   	 	<div>
+   	 	  
+	        <table id="cooltable4" class="table table-striped table-bordered">
+	            <thead class="thead-dark">
+	                <tr>
+	                    <th>days a week</th>
+	                    <th>sets</th>
+	                    <th>break between sets</th>
+	                    
+	                    
+	                </tr>
+	            </thead>
+	            <tbody>
+	                <tr th:each="personalProgram: ${personalProgram}">
+	                    <td th:text="${personalProgram.days}">name</td>
+	                    <td th:text="${personalProgram.sets}">name</td>
+	                    <td th:text="${personalProgram.breakForSets}">name</td>
+	                    
+	                    
+	                    
+	                </tr>
+	            </tbody>  
+	        </table>
+   	 	</div>
+   	 	
+   	 	
+   	 	
+   	 	
+   	 	<div>
+   	 	  <label class="col-4 col-form-label"><b>Food Regime </b></label>
+	        <table id="cooltable5" class="table table-striped table-bordered">
+	            <thead class="thead-dark">
+	                <tr>
+	                    <th>name</th>
+	                    <th>grams</th>
+	                    <th>nutritionalValue(cal) per 100g</th>
+	                    
+	                </tr>
+	            </thead>
+	            <tbody>
+	                <tr th:each="food: ${listCurrentFoods}">
+	                    <td th:text="${food.name}">name</td>
+	                    <td th:text="${food.grams}">grams</td>
+	                    <td th:text="${food.nutritionalValue}">nutritionalValue(cal) per 100g</td>
+	                    
+	                </tr>
+	            </tbody>
+	            
+	             
+	        </table>
+   	 	</div>
+        
+        
+        
+</div>
+</body>
+</html>
