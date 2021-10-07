@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="ISO-8859-1">
+    <title>Blogs</title>
+    
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/templatemo-training-studio.css">
+    
+	<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    
+    
+    <style>
+    .table{
+    background-color: #696969;
+    margin-top:10%;
+    
+    }
+    .header-area{background:#38393b !important}
+	    body {
+	  background-image: url('/images/blog.jpg');
+	    background-repeat: no-repeat;
+	    background-attachment: fixed !important;
+	    background-attachment: initial;
+		background-position: center top !important;
+	
+	     height: 160vh;
+	    background-position: center, center;
+	    -webkit-background-size: cover;
+	    -moz-background-size: cover;
+	    -o-background-size: cover;
+	    background-size: cover;
+	
+	
+	  width:100%;
+	}
+	#heading{
+	margin-top:10%
+	}
+	.thead{	
+    background: #99b19c; }
+    tr{color:white}
+    a{color:Orange }
+    #nicetable{
+	opacity: 0.85;
+	
+	}
+	#heading a{color:#584c4a}
+	.container{max-width: 1450px !important}
+	</style>
+	
+</head>
+
+<body>
+<h6>.</h6>
+ <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="/" class="logo">Fit<em>Fam</em></a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+										                             <li class="scroll-to-section"><a href="/" class="active">Home</a></li>
+										                             <li class="scroll-to-section"><a href="/">About us</a></li>
+										                             <li class="scroll-to-section"><a href="/">Courses</a></li>
+										                             <li class="scroll-to-section"><a href="/">Contact</a></li> 
+										                             <li class="scroll-to-section"><a th:href="@{/Knowledge}">Knowledge</a></li> 
+										                             <li class="scroll-to-section"><a th:href="@{/Calculator}">Calculator</a></li> 
+										                             <li class="scroll-to-section"><a th:href="@{/trainers}">List of Trainers</a></li> 
+                   <div sec:authorize="!isAuthenticated()">          <li class="scroll-to-section"><a th:href="@{/login}">Login</a></li>  </div>
+                   
+ 				   <div sec:authorize="hasRole('ROLE_MENTOR')">      <li class="scroll-to-section"><a th:href="@{/trainees}">List of Trainees</a></li> </div>
+                   <div sec:authorize="hasRole('ROLE_ADMIN')">       <li class="scroll-to-section"><a th:href="@{/users}">List of Users</a></li> </div>  
+                   <div sec:authorize="isAuthenticated()">           <li class="scroll-to-section"><a th:href="@{/AccountInfo}">AccountInfo</a></li> </div>
+                   <div sec:authorize="isAuthenticated()">           <li class="scroll-to-section"><a th:href="@{/Logout}">Logout</a></li> </div>  
+                   <div sec:authorize="!isAuthenticated()">          <li class="main-button"><a th:href="@{/register}">Sign up</a></h3></li> </div>
+                         
+                         
+                         
+                        
+                            
+                        </ul>        
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+
+<div class="container text-center">
+	<div id="heading">
+        <h1>List of Blogs</h1>
+    <div sec:authorize="hasRole('ROLE_ADMIN')">     
+   		 <a th:href="@{/Knowledge/createBlog}"><b>Click here to add a blog</b></a>
+    </div>
+        
+    </div>
+    
+    
+    <div>
+        <table id="nicetable" class="table table-striped table-bordered">
+            <thead class="thead">
+                <tr>
+                    <th>Blog ID</th>
+                    
+                    <th>date</th>
+                    <th>title</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="blog: ${listBlogs}">
+                    <td th:text="${blog.id}">Blog ID</td> 
+                    <td th:text="${blog.date}">date</td>
+                    <td  th:text="${blog.title}" >title</td>
+                  <td>  
+                <div sec:authorize="hasRole('ROLE_ADMIN')">     <a th:href="${'/Knowledge/editBlog/' + {blog.id}}">edit</a> </div>
+              <div sec:authorize="hasRole('ROLE_ADMIN')">       <a th:href="${'/Knowledge/deleteBlog/' + {blog.id}}">delete</a> </div>
+													             
+                     <a th:href="@{|Knowledge/view/${blog.id}|}">view</a>
+                    </td>
+                    
+                    
+                    
+                    
+                </tr>
+            </tbody>
+            
+            
+             
+        </table>
+    </div>
+    
+    
+    
+    
+    
+    
+</div>
+
+</body>
+
+</html> 
