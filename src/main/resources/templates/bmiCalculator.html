@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>BMI calculator</title>
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="/assets/css/templatemo-training-studio.css">
+
+<style>
+body {
+	background-image: url('/images/calculator.jpg');
+	background-repeat: no-repeat;
+	background-attachment: fixed !important;
+	background-attachment: initial;
+	background-position: center top !important;
+	height: 100vh;
+	background-position: center, center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	width: 100%;
+}
+
+h1 {
+	margin-top: 17%;
+	color: white
+}
+
+#sexx {
+	margin-top: 10%
+}
+
+.header-area {
+	background: #38393b !important
+}
+
+.container {
+	max-width: 1450px !important
+}
+</style>
+
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" th:src="@{/js/Calculation.js}"></script>
+</head>
+<body>
+	<h6>.</h6>
+	<h6>.</h6>
+	<!-- ***** Header Area Start ***** -->
+	<header class="header-area header-sticky">
+		<div class="container">
+			<div class="row">
+
+				<nav class="main-nav">
+					<!-- ***** Logo Start ***** -->
+					<a href="/" class="logo">Fit<em>Fam</em></a>
+					<!-- ***** Logo End ***** -->
+					<!-- ***** Menu Start ***** -->
+					<ul class="nav">
+						<li class="scroll-to-section"><a href="/" class="active">Home</a></li>
+						<li class="scroll-to-section"><a href="/">About us</a></li>
+						<li class="scroll-to-section"><a href="/">Courses</a></li>
+						<li class="scroll-to-section"><a href="/">Contact</a></li>
+						<li class="scroll-to-section"><a th:href="@{/Knowledge}">Knowledge</a></li>
+						<li class="scroll-to-section"><a th:href="@{/Calculator}">Calculator</a></li>
+						<li class="scroll-to-section"><a th:href="@{/trainers}">List
+								of Trainers</a></li>
+						<div sec:authorize="!isAuthenticated()">
+							<li class="scroll-to-section"><a th:href="@{/login}">Login</a></li>
+						</div>
+
+						<div sec:authorize="hasRole('ROLE_MENTOR')">
+							<li class="scroll-to-section"><a th:href="@{/trainees}">List
+									of Trainees</a></li>
+						</div>
+						<div sec:authorize="hasRole('ROLE_ADMIN')">
+							<li class="scroll-to-section"><a th:href="@{/users}">List
+									of Users</a></li>
+						</div>
+						<div sec:authorize="isAuthenticated()">
+							<li class="scroll-to-section"><a th:href="@{/AccountInfo}">AccountInfo</a></li>
+						</div>
+						<div sec:authorize="isAuthenticated()">
+							<li class="scroll-to-section"><a th:href="@{/Logout}">Logout</a></li>
+						</div>
+						<div sec:authorize="!isAuthenticated()">
+							<li class="main-button"><a th:href="@{/register}">Sign
+									up</a>
+								</h3></li>
+						</div>
+					</ul>
+					<a class='menu-trigger'> <span>Menu</span>
+					</a>
+					<!-- ***** Menu End ***** -->
+				</nav>
+			</div>
+		</div>
+	</header>
+	<!-- ***** Header Area End ***** -->
+	<div class="container text-center">
+		<div>
+			<h1>Check your BMI</h1>
+		</div>
+
+		<div sec:authorize="isAuthenticated()">
+			<form th:action="@{/Calculator/log_create}" th:object="${log}"
+				method="post" style="max-width: 600px; margin: 0 auto;">
+				<div class="m-3">
+					<div class="form-group row">
+						<label class="col-4 col-form-label">height (in cm) </label>
+						<div class="col-8">
+							<input type="number" id="height" th:field="*{height}"
+								class="form-control" required min="30" max="300" />
+
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-4 col-form-label">kilograms (in kg) </label>
+						<div class="col-8">
+							<input type="number" id="kilograms" th:field="*{kilograms}"
+								class="form-control" required min="10" max="600" step="0.01" />
+						</div>
+					</div>
+
+					<button type="submit" th:onclick="CalculateLoged()"
+						class="btn btn-primary">Check</button>
+
+				</div>
+			</form>
+		</div>
+		<div sec:authorize="isAnonymous()">
+			<form th:action="@{/bmiCalculated}"
+				style="max-width: 600px; margin: 0 auto;">
+				<div class="m-3">
+					<label id="sexx" for="sex">sex</label> <select id="sex" name="sex">
+						<option value="male">male</option>
+						<option value="female">female</option>
+					</select>
+
+					<div class="form-group row">
+						<label class="col-4 col-form-label">age: </label>
+						<div class="col-8">
+							<input type="number" id="ageUnloged" class="form-control"
+								required min="1" max="100" />
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-4 col-form-label">height (in cm) </label>
+						<div class="col-8">
+							<input type="number" id="heightUnloged" class="form-control"
+								required min="30" max="300" />
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-4 col-form-label">kilograms (in kg) </label>
+						<div class="col-8">
+							<input type="number" id="kilogramsUnloged" class="form-control"
+								required min="10" max="600" step="0.01" />
+						</div>
+					</div>
+					<button type="submit" th:onclick="CalculateUnloged()"
+						class="btn btn-primary">Check</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

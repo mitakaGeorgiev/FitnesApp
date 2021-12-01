@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="ISO-8859-1">
+<title>Edit a program</title>
+<link rel="stylesheet" type="text/css"	href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript"	src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css"	href="/assets/css/templatemo-training-studio.css">
+<style>
+body {
+	background-image: url('/images/blog.jpg');
+	background-repeat: no-repeat;
+	background-attachment: fixed !important;
+	background-attachment: initial;
+	background-position: center top !important;
+	height: 150vh;
+	background-position: center, center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	width: 100%;
+}
+
+.bottomtable {
+	color: white
+}
+
+label {
+	color: white
+}
+
+.header-area {
+	background: #38393b !important
+}
+
+.container {
+	max-width: 1450px !important
+}
+
+h1 {
+	margin-top: 5%;
+	margin-bottom: 1%
+}
+
+#nicetable {
+	background-color: black;
+	opacity: 70%
+}
+</style>
+<script>
+	function AddExercise(index, programId) {
+		var exercise = $("#exercises" + index).val();
+		$.ajax({
+			url : "/trainees/editProgram/AddExercise?exercise=" + exercise
+					+ "&programId=" + programId,
+			type : "get",
+			success : function(fragment) {
+				console.log(fragment);
+				window.location.reload();
+			},
+			error : function(xhr) {
+				alert('Request Status: ' + xhr.status + ' Status Text: '
+						+ xhr.statusText + ' ' + xhr.responseText);
+			}
+		});
+	}
+	function RemoveExercise(index, programId) {
+		var exercise = $("#exercises" + index).val();
+		$.ajax({
+			url : "/trainees/editProgram/RemoveExercise?exercise=" + exercise
+					+ "&programId=" + programId,
+			type : "get",
+			success : function(fragment) {
+				console.log(fragment);
+				window.location.reload();
+			},
+			error : function(xhr) {
+				alert('Request Status: ' + xhr.status + ' Status Text: '
+						+ xhr.statusText + ' ' + xhr.responseText);
+			}
+		});
+	}
+</script>
+</head>
+<body>
+	<h6>.</h6>
+	<!-- ***** Header Area Start ***** -->
+	<header class="header-area header-sticky">
+		<div class="container">
+			<div class="row">
+
+				<nav class="main-nav">
+					<!-- ***** Logo Start ***** -->
+					<a href="/" class="logo">Fit<em>Fam</em></a>
+					<!-- ***** Logo End ***** -->
+					<!-- ***** Menu Start ***** -->
+					<ul class="nav">
+						<li class="scroll-to-section"><a href="/" class="active">Home</a></li>
+						<li class="scroll-to-section"><a href="/">About us</a></li>
+						<li class="scroll-to-section"><a href="/">Courses</a></li>
+						<li class="scroll-to-section"><a href="/">Contact</a></li>
+						<li class="scroll-to-section"><a th:href="@{/Knowledge}">Knowledge</a></li>
+						<li class="scroll-to-section"><a th:href="@{/Calculator}">Calculator</a></li>
+						<li class="scroll-to-section"><a th:href="@{/trainers}">List
+								of Trainers</a></li>
+						<div sec:authorize="!isAuthenticated()">
+							<li class="scroll-to-section"><a th:href="@{/login}">Login</a></li>
+						</div>
+
+						<div sec:authorize="hasRole('ROLE_MENTOR')">
+							<li class="scroll-to-section"><a th:href="@{/trainees}">List
+									of Trainees</a></li>
+						</div>
+						<div sec:authorize="hasRole('ROLE_ADMIN')">
+							<li class="scroll-to-section"><a th:href="@{/users}">List
+									of Users</a></li>
+						</div>
+						<div sec:authorize="isAuthenticated()">
+							<li class="scroll-to-section"><a th:href="@{/AccountInfo}">AccountInfo</a></li>
+						</div>
+						<div sec:authorize="isAuthenticated()">
+							<li class="scroll-to-section"><a th:href="@{/Logout}">Logout</a></li>
+						</div>
+						<div sec:authorize="!isAuthenticated()">
+							<li class="main-button"><a th:href="@{/register}">Sign
+									up</a>
+							</h3></li>
+						</div>
+					</ul>
+					<a class='menu-trigger'> <span>Menu</span>
+					</a>
+					<!-- ***** Menu End ***** -->
+				</nav>
+			</div>
+		</div>
+	</header>
+	<!-- ***** Header Area End ***** -->
+	<div class="container text-center">
+		<div>
+			<h1>Edit a Program</h1>
+		</div>
+
+		<form th:action="@{/trainees/editProgram/program_change}"
+			th:object="${personalProgram}" method="post"
+			style="max-width: 600px; margin: 0 auto;">
+			<div class="form-group row">
+				<label id="plsmove" class="col-4 col-form-label">days a
+					week: </label>
+				<div class="col-8">
+					<input type="number" th:field="*{days}" class="form-control"
+						min="0" max="7" required />
+				</div>
+				<label class="col-4 col-form-label">sets: </label>
+				<div class="col-8">
+					<input type="number" th:field="*{sets}" class="form-control"
+						min="1" max="20" required />
+				</div>
+				<label class="col-4 col-form-label">break between sets
+					(seconds) </label>
+				<div class="col-8">
+					<input type="number" th:field="*{breakForSets}"
+						class="form-control" min="1" max="300" required />
+				</div>
+				<div class="col-8">
+					<input type="hidden" th:field="*{PersonalProgram_id}"
+						class="form-control" />
+				</div>
+				<div class="col-8">
+					<input type="hidden" th:field="*{exercises}" class="form-control" />
+				</div>
+			</div>
+			<div class="form-group row">
+
+				<label class="col-4 col-form-label">exercise </label> <select
+					class="form control" th:id="'exercises'+${index}">
+
+					<option th:each="exercise,index : ${listExercises}"
+						th:value="${exercise.Exercise_id}" th:text="${exercise.name}"></option>
+
+				</select>
+				<button type="button"
+					th:onclick="'AddExercise('+${index}+','+${personalProgram.PersonalProgram_id}+')'">Add</button>
+				<button type="button"
+					th:onclick="'RemoveExercise('+${index}+','+${personalProgram.PersonalProgram_id}+')'">Remove</button>
+			</div>
+
+			<button class="btn btn-primary" type="submit">Save</button>
+		</form>
+		<div class="form-row"></div>
+		<div>
+			<table id="nicetable" class="table table-striped table-bordered">
+				<thead class="thead-dark">
+					<tr>
+						<th>exercise ID</th>
+						<th>name</th>
+						<th>reps</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="bottomtable" th:fragment="exercise-row"
+						th:each="Addedexercise,index : ${testExercises}">
+						<td th:text="${Addedexercise.Exercise_id}">exercise ID</td>
+						<td th:text="${Addedexercise.name}">name</td>
+						<td th:text="${Addedexercise.reps}">reps</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Choosing mentor was Successfull</title>
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="/assets/css/templatemo-training-studio.css">
+<style>
+body {
+	background-image: url('/images/loginche2.jpg');
+	background-repeat: no-repeat;
+	background-attachment: fixed !important;
+	background-attachment: initial;
+	background-position: center top !important;
+	height: 100vh;
+	background-position: center, center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	width: 100%;
+}
+
+.header-area {
+	background: #38393b !important
+}
+
+.container {
+	max-width: 1450px !important
+}
+
+h3 {
+	margin-top: 4%
+}
+</style>
+</head>
+<body>
+	<h6>.</h6>
+	<!-- ***** Header Area Start ***** -->
+	<header class="header-area header-sticky">
+		<div class="container">
+			<div class="row">
+				<nav class="main-nav">
+					<!-- ***** Logo Start ***** -->
+					<a href="/" class="logo">Fit<em>Fam</em></a>
+					<!-- ***** Logo End ***** -->
+					<!-- ***** Menu Start ***** -->
+					<ul class="nav">
+						<li class="scroll-to-section"><a href="/" class="active">Home</a></li>
+						<li class="scroll-to-section"><a href="/">About us</a></li>
+						<li class="scroll-to-section"><a href="/">Courses</a></li>
+						<li class="scroll-to-section"><a href="/">Contact</a></li>
+						<li class="scroll-to-section"><a th:href="@{/Knowledge}">Knowledge</a></li>
+						<li class="scroll-to-section"><a th:href="@{/Calculator}">Calculator</a></li>
+						<li class="scroll-to-section"><a th:href="@{/trainers}">List
+								of Trainers</a></li>
+						<div sec:authorize="!isAuthenticated()">
+							<li class="scroll-to-section"><a th:href="@{/login}">Login</a></li>
+						</div>
+
+						<div sec:authorize="hasRole('ROLE_MENTOR')">
+							<li class="scroll-to-section"><a th:href="@{/trainees}">List
+									of Trainees</a></li>
+						</div>
+						<div sec:authorize="hasRole('ROLE_ADMIN')">
+							<li class="scroll-to-section"><a th:href="@{/users}">List
+									of Users</a></li>
+						</div>
+						<div sec:authorize="isAuthenticated()">
+							<li class="scroll-to-section"><a th:href="@{/AccountInfo}">AccountInfo</a></li>
+						</div>
+						<div sec:authorize="isAuthenticated()">
+							<li class="scroll-to-section"><a th:href="@{/Logout}">Logout</a></li>
+						</div>
+						<div sec:authorize="!isAuthenticated()">
+							<li class="main-button"><a th:href="@{/register}">Sign
+									up</a>
+							</h3></li>
+						</div>
+					</ul>
+					<a class='menu-trigger'> <span>Menu</span>
+					</a>
+					<!-- ***** Menu End ***** -->
+				</nav>
+			</div>
+		</div>
+	</header>
+	<!-- ***** Header Area End ***** -->
+	<div class="container text-center">
+		<h3>You have successfully chosen a mentor</h3>
+		<h4>
+			<a th:href="@{/}">Click here for homepage</a>
+		</h4>
+	</div>
+</body>
+</html>

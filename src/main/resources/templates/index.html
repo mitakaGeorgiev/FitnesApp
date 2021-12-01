@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link
+	href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+	rel="stylesheet">
+<style>
+.container {
+	max-width: 1450px !important
+}
+</style>
+<title>FitFam</title>
+<!--
+
+TemplateMo 548 Training Studio
+
+https://templatemo.com/tm-548-training-studio
+
+-->
+<!-- Additional CSS Files -->
+<link rel="stylesheet" type="text/css"
+	href="assets/css/bootstrap.min.css">
+
+<link rel="stylesheet" type="text/css"
+	href="assets/css/font-awesome.css">
+
+<link rel="stylesheet" href="assets/css/templatemo-training-studio.css">
+
+</head>
+
+<body>
+
+	<!-- ***** Preloader Start ***** -->
+	<div id="js-preloader" class="js-preloader">
+		<div class="preloader-inner">
+			<span class="dot"></span>
+			<div class="dots">
+				<span></span> <span></span> <span></span>
+			</div>
+		</div>
+	</div>
+	<!-- ***** Preloader End ***** -->
+
+
+	<!-- ***** Header Area Start ***** -->
+	<header class="header-area header-sticky">
+		<div class="container">
+			<div class="row">
+
+				<nav class="main-nav">
+					<!-- ***** Logo Start ***** -->
+					<a href="/" class="logo">Fit<em>Fam</em></a>
+					<!-- ***** Logo End ***** -->
+					<!-- ***** Menu Start ***** -->
+					<ul class="nav">
+						<li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
+						<li class="scroll-to-section"><a href="#features">About
+								us</a></li>
+						<li class="scroll-to-section"><a href="#our-courses">Courses</a></li>
+						<li class="scroll-to-section"><a href="#contact-us">Contact</a></li>
+						<li class="scroll-to-section"><a th:href="@{/Knowledge}">Knowledge</a></li>
+						<li class="scroll-to-section"><a th:href="@{/Calculator}">Calculator</a></li>
+						<li class="scroll-to-section"><a th:href="@{/trainers}">List
+								of Trainers</a></li>
+						<div sec:authorize="!isAuthenticated()">
+							<li class="scroll-to-section"><a th:href="@{/login}">Login</a></li>
+						</div>
+
+						<div sec:authorize="hasRole('ROLE_MENTOR')">
+							<li class="scroll-to-section"><a th:href="@{/trainees}">List
+									of Trainees</a></li>
+						</div>
+						<div sec:authorize="hasRole('ROLE_ADMIN')">
+							<li class="scroll-to-section"><a th:href="@{/users}">List
+									of Users</a></li>
+						</div>
+						<div sec:authorize="isAuthenticated()">
+							<li class="scroll-to-section"><a th:href="@{/AccountInfo}">AccountInfo</a></li>
+						</div>
+						<div sec:authorize="isAuthenticated()">
+							<li class="scroll-to-section"><a th:href="@{/Logout}">Logout</a></li>
+						</div>
+						<div sec:authorize="!isAuthenticated()">
+							<li class="main-button"><a th:href="@{/register}">Sign
+									up</a>
+							</h3></li>
+						</div>
+					</ul>
+					<a class='menu-trigger'> <span>Menu</span>
+					</a>
+					<!-- ***** Menu End ***** -->
+				</nav>
+			</div>
+		</div>
+
+	</header>
+	<!-- ***** Header Area End ***** -->
+
+	<!-- ***** Main Banner Area Start ***** -->
+	<div class="main-banner" id="top">
+		<video autoplay muted loop id="bg-video">
+			<source src="assets/images/gym-video.mp4" type="video/mp4" />
+		</video>
+
+		<div class="video-overlay header-text">
+			<div class="caption">
+				<h6>work harder, get stronger</h6>
+				<h2>
+					easy with our <em>gym</em>
+				</h2>
+				<div class="main-button scroll-to-section">
+					<a href="#features">Join our familly</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ***** Main Banner Area End ***** -->
+
+	<!-- ***** Features Item Start ***** -->
+	<section class="section" id="features">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 offset-lg-3">
+					<div class="section-heading">
+						<h2>
+							What are you <em>interested in</em>
+						</h2>
+						<img src="assets/images/line-dec.png" alt="waves">
+						<p>Get acquainted with the way we work</p>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<ul class="features-items">
+						<li class="feature-item">
+							<div class="left-icon">
+								<img src="assets/images/features-first-icon.png" alt="First One">
+							</div>
+							<div class="right-content">
+								<h4>Basic Fitness</h4>
+								<p>For people who don't want a lot muscle mass, but just
+									want to build a healthy lifestyle.</p>
+								<a href="#" class="text-button">Discover More</a>
+							</div>
+						</li>
+						<li class="feature-item">
+							<div class="left-icon">
+								<img src="assets/images/features-first-icon.png"
+									alt="second one">
+							</div>
+							<div class="right-content">
+								<h4>New Gym Training</h4>
+								<p>You are you to sports and trainings? We can help you
+									about that!</p>
+								<a href="#" class="text-button">Discover More</a>
+							</div>
+						</li>
+						<li class="feature-item">
+							<div class="left-icon">
+								<img src="assets/images/features-first-icon.png"
+									alt="third gym training">
+							</div>
+							<div class="right-content">
+								<h4>Basic Muscle Course</h4>
+								<p>You are wondering from where to start? You have found the
+									perfect place to start!</p>
+								<a href="#" class="text-button">Discover More</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="col-lg-6">
+					<ul class="features-items">
+						<li class="feature-item">
+							<div class="left-icon">
+								<img src="assets/images/features-first-icon.png"
+									alt="fourth muscle">
+							</div>
+							<div class="right-content">
+								<h4>Advanced Muscle Course</h4>
+								<p>We have an advanced course for people, who want something
+									more than just a regular workout.</p>
+								<a href="#" class="text-button">Discover More</a>
+							</div>
+						</li>
+						<li class="feature-item">
+							<div class="left-icon">
+								<img src="assets/images/features-first-icon.png"
+									alt="training fifth">
+							</div>
+							<div class="right-content">
+								<h4>Yoga Training</h4>
+								<p>You want to free your mind from the everyday stress? We
+									can help.</p>
+								<a href="#" class="text-button">Discover More</a>
+							</div>
+						</li>
+						<li class="feature-item">
+							<div class="left-icon">
+								<img src="assets/images/features-first-icon.png"
+									alt="gym training">
+							</div>
+							<div class="right-content">
+								<h4>Body Building Course</h4>
+								<p>If you are ready to go to the next level and to test your
+									human limits. This is the place.</p>
+								<a href="#" class="text-button">Discover More</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- ***** Features Item End ***** -->
+
+	<!-- ***** Call to Action Start ***** -->
+	<section class="section" id="call-to-action">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-10 offset-lg-1">
+					<div class="cta-content">
+						<h2>
+							Don’t <em>think</em>, begin <em>today</em>!
+						</h2>
+						<p>It is hard to start but easy to continue!</p>
+						<div class="main-button scroll-to-section">
+							<a href="#our-courses">Become a member</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- ***** Call to Action End ***** -->
+
+	<!-- ***** Our Clourses Start ***** -->
+	<section class="section" id="our-courses">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 offset-lg-3">
+					<div class="section-heading">
+						<h2>
+							Our <em>courses</em>
+						</h2>
+						<img src="assets/images/line-dec.png" alt="">
+						<p>Choose one from below to find out what expects you.</p>
+					</div>
+				</div>
+			</div>
+			<div class="row" id="tabs">
+				<div class="col-lg-4">
+					<ul>
+						<li><a href='#tabs-1'><img
+								src="assets/images/tabs-first-icon.png" alt="">First
+								Training Class</a></li>
+						<li><a href='#tabs-2'><img
+								src="assets/images/tabs-first-icon.png" alt="">Second
+								Training Class</a></a></li>
+						<li><a href='#tabs-3'><img
+								src="assets/images/tabs-first-icon.png" alt="">Third
+								Training Class</a></a></li>
+						<li><a href='#tabs-4'><img
+								src="assets/images/tabs-first-icon.png" alt="">Fourth
+								Training Class</a></a></li>
+					</ul>
+				</div>
+				<div class="col-lg-8">
+					<section class='tabs-content'>
+						<article id='tabs-1'>
+							<img src="assets/images/training-image-01.jpg" alt="First Class">
+							<h4>First Training Class</h4>
+							<p>The course includes powerlifting techniques and its build
+								around gaining of muscle mass. It is made for people who have
+								already made it through the beginner trainings, which are easier
+								to execute, and are aiming to prepare the body for bigger
+								stress. In this course you can accomplish your goal to becoming
+								a "greek god".</p>
+							<div class="main-button">
+								<a href="/trainers">View Trainers</a>
+							</div>
+						</article>
+						<article id='tabs-2'>
+							<img src="assets/images/training-image-02.jpg"
+								alt="Second Training">
+							<h4>Second Training Class</h4>
+							<p>This program is meant to improve your strength, muscle
+								size, and conditioning simultaneously. Each four-week block will
+								build upon the strength and skill you learn from the previous
+								four weeks.</p>
+							<div class="main-button">
+								<a href="/trainers">View Trainers</a>
+							</div>
+						</article>
+						<article id='tabs-3'>
+							<img src="assets/images/training-image-03.jpg" alt="Third Class">
+							<h4>Third Training Class</h4>
+							<p>Building strength training into your routine early on will
+								really help you at the perimenopausal stage and during menopause
+								when hormones affect bone density, osteoporosis becomes a risk
+								and other ailments can arise. Strength training during that time
+								can offset these risks. Build strength training into your life
+								in your 20s and 30s, and when your body starts to change –
+								usually in your 50s – your routine won’t have to change quite as
+								dramatically as it would if you were starting from scratch.</p>
+							<div class="main-button">
+								<a href="/trainers">View Trainers</a>
+							</div>
+						</article>
+						<article id='tabs-4'>
+							<img src="assets/images/training-image-04.jpg"
+								alt="Fourth Training">
+							<h4>Fourth Training Class</h4>
+							<p>In this 15-day comprehensive online yoga course, renowned
+								British yoga instructor and founder of Yoga 15, Abi Carver,
+								leads you through a comprehensive at-home beginner yoga retreat,
+								in just 30 minutes a day.</p>
+							<div class="main-button">
+								<a href="/trainers">View Trainers</a>
+							</div>
+						</article>
+					</section>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- ***** Our Classes End ***** -->
+	
+	<!-- ***** Testimonials Starts ***** -->
+	<section class="section" id="trainers">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 offset-lg-3">
+					<div class="section-heading">
+						<h2>
+							Expert <em>Trainers</em>
+						</h2>
+						<img src="assets/images/line-dec.png" alt="">
+						<p>Meet our experts!</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-4">
+					<div class="trainer-item">
+						<div class="image-thumb">
+							<img src="assets/images/first-trainer.jpg" alt="">
+						</div>
+						<div class="down-content">
+							<span>Strength Trainer</span>
+							<h4>Cvetomir P. Kuchev</h4>
+							<p>He has an extensive background from training professional
+								and amateur athletes to working professionals with nominal
+								experience in fitness.</p>
+							<ul class="social-icons">
+								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+								<li><a href="#"><i class="fa fa-behance"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="trainer-item">
+						<div class="image-thumb">
+							<img src="assets/images/second-trainer.jpg" alt="">
+						</div>
+						<div class="down-content">
+							<span>Muscle Trainer</span>
+							<h4>Ivan G. Kamenov</h4>
+							<p>He has a background in health and fitness as well as
+								athletic performance training with over 20 years of
+								certification and experience in the field.</p>
+							<ul class="social-icons">
+								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+								<li><a href="#"><i class="fa fa-behance"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="trainer-item">
+						<div class="image-thumb">
+							<img src="assets/images/third-trainer.jpg" alt="">
+						</div>
+						<div class="down-content">
+							<span>Power Trainer</span>
+							<h4>Rumen P. Dudinski</h4>
+							<p>My passion for sports and helping others is what led me to
+								personal training. I was a 4 sport college athlete at NSA where
+								I played football and ran track.</p>
+							<ul class="social-icons">
+								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+								<li><a href="#"><i class="fa fa-behance"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- ***** Testimonials Ends ***** -->
+
+	<!-- ***** Contact Us Area Starts ***** -->
+	<section class="section" id="contact-us">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-xs-12">
+					<div id="map">
+						<iframe
+							src="https://maps.google.com/maps?q=Av.+L%C3%BAcio+Costa,+Rio+de+Janeiro+-+RJ,+Brazil&t=&z=13&ie=UTF8&iwloc=&output=embed"
+							width="100%" height="600px" frameborder="0" style="border: 0"
+							allowfullscreen></iframe>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-xs-12">
+					<div class="contact-form">
+						<form id="contact" action="" method="post">
+							<div class="row">
+								<div class="col-md-6 col-sm-12">
+									<fieldset>
+										<input name="name" type="text" id="name"
+											placeholder="Your Name*" required="">
+									</fieldset>
+								</div>
+								<div class="col-md-6 col-sm-12">
+									<fieldset>
+										<input name="email" type="text" id="email"
+											pattern="[^ @]*@[^ @]*" placeholder="Your Email*" required="">
+									</fieldset>
+								</div>
+								<div class="col-md-12 col-sm-12">
+									<fieldset>
+										<input name="subject" type="text" id="subject"
+											placeholder="Subject">
+									</fieldset>
+								</div>
+								<div class="col-lg-12">
+									<fieldset>
+										<textarea name="message" rows="6" id="message"
+											placeholder="Message" required=""></textarea>
+									</fieldset>
+								</div>
+								<div class="col-lg-12">
+									<fieldset>
+										<button type="submit" id="form-submit" class="main-button">Send
+											Message</button>
+									</fieldset>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- ***** Contact Us Area Ends ***** -->
+
+	<!-- ***** Footer Start ***** -->
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<p>Copyright &copy; 2021 Training Studio FitFam - Designed by
+						Dimitar Georgiev</p>
+
+					<!-- You shall support us a little via PayPal to info@templatemo.com -->
+
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- jQuery -->
+	<script src="assets/js/jquery-2.1.0.min.js"></script>
+
+	<!-- Bootstrap -->
+	<script src="assets/js/popper.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+
+	<!-- Plugins -->
+	<script src="assets/js/scrollreveal.min.js"></script>
+	<script src="assets/js/waypoints.min.js"></script>
+	<script src="assets/js/jquery.counterup.min.js"></script>
+	<script src="assets/js/imgfix.min.js"></script>
+	<script src="assets/js/mixitup.js"></script>
+	<script src="assets/js/accordions.js"></script>
+
+	<!-- Global Init -->
+	<script src="assets/js/custom.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>List of Trainees</title>
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/assets/css/templatemo-training-studio.css">
+<style>
+body {
+	background-image: url('/images/group of people.jpg');
+	background-repeat: no-repeat;
+	background-attachment: fixed !important;
+	background-attachment: initial;
+	background-position: center top !important;
+	height: 100vh;
+	background-position: center, center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	width: 100%;
+}
+
+.set-bg {
+	color: orange;
+}
+
+.table {
+	background-color: #454545;
+	margin-left: 1% !important
+}
+
+.table tr {
+	color: white
+}
+
+#nicetable {
+	opacity: 0.85;
+	margin: -5%;
+}
+
+.header-area {
+	background: #38393b !important
+}
+
+.container {
+	max-width: 1450px !important
+}
+
+h1 {
+	margin: 10%;
+	color: white
+}
+</style>
+<script>
+	function getUserIdProgram(userid) {
+		window.location.href = "/trainees/editProgram?userId=" + userid
+	}
+	function getUserIdRegime(userid) {
+		window.location.href = "/trainees/editRegime?userId=" + userid
+	}
+</script>
+</head>
+<body>
+	<h6>.</h6>
+	<!-- ***** Header Area Start ***** -->
+	<header class="header-area header-sticky">
+		<div class="container">
+			<div class="row">
+				<nav class="main-nav">
+					<!-- ***** Logo Start ***** -->
+					<a href="/" class="logo">Fit<em>Fam</em></a>
+					<!-- ***** Logo End ***** -->
+					<!-- ***** Menu Start ***** -->
+					<ul class="nav">
+						<li class="scroll-to-section"><a href="/" class="active">Home</a></li>
+						<li class="scroll-to-section"><a href="/">About us</a></li>
+						<li class="scroll-to-section"><a href="/">Courses</a></li>
+						<li class="scroll-to-section"><a href="/">Contact</a></li>
+						<li class="scroll-to-section"><a th:href="@{/Knowledge}">Knowledge</a></li>
+						<li class="scroll-to-section"><a th:href="@{/Calculator}">Calculator</a></li>
+						<li class="scroll-to-section"><a th:href="@{/trainers}">List
+								of Trainers</a></li>
+						<div sec:authorize="!isAuthenticated()">
+							<li class="scroll-to-section"><a th:href="@{/login}">Login</a></li>
+						</div>
+
+						<div sec:authorize="hasRole('ROLE_MENTOR')">
+							<li class="scroll-to-section"><a th:href="@{/trainees}">List
+									of Trainees</a></li>
+						</div>
+						<div sec:authorize="hasRole('ROLE_ADMIN')">
+							<li class="scroll-to-section"><a th:href="@{/users}">List
+									of Users</a></li>
+						</div>
+						<div sec:authorize="isAuthenticated()">
+							<li class="scroll-to-section"><a th:href="@{/AccountInfo}">AccountInfo</a></li>
+						</div>
+						<div sec:authorize="isAuthenticated()">
+							<li class="scroll-to-section"><a th:href="@{/Logout}">Logout</a></li>
+						</div>
+						<div sec:authorize="!isAuthenticated()">
+							<li class="main-button"><a th:href="@{/register}">Sign
+									up</a>
+							</h3></li>
+						</div>
+					</ul>
+					<a class='menu-trigger'> <span>Menu</span>
+					</a>
+					<!-- ***** Menu End ***** -->
+				</nav>
+			</div>
+		</div>
+	</header>
+	<!-- ***** Header Area End ***** -->
+	<div class="container text-center">
+		<div></div>
+		<div>
+			<h1>List of Trainees</h1>
+		</div>
+		<div>
+			<table id="nicetable" class="table table-striped table-bordered">
+				<thead class="thead-dark">
+					<tr>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Age</th>
+						<th>Sex</th>
+						<th>Email</th>
+						<th>PersonalProgram</th>
+						<th>PersonalRegime</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="user,index: ${listUsers}">
+						<td th:text="${user.firstName}">First Name</td>
+						<td th:text="${user.lastName}">Last Name</td>
+						<td th:text="${user.age}">Age</td>
+						<td th:text="${user.sex}">Sex</td>
+						<td th:text="${user.email}">Email</td>
+						<td>
+							<button th:onclick="'getUserIdProgram('+${user.id}+')'">Edit</button>
+						</td>
+						<td>
+							<button th:onclick="'getUserIdRegime('+${user.id}+')'">Edit</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
